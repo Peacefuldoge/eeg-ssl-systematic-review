@@ -1,0 +1,253 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,booktabs,tabularx,array,fancyhdr,lastpage,fvextra}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{2em}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Supplemental Data S1}
+\fancyhead[R]{\small Database search strategies}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\hypersetup{pdftitle={Database-specific search strategies used to identify studies of self-supervised EEG analysis},pdfauthor={Zhenzuo Zhu; Joon Huang Chuah; Farina Muhamad; Munkhjargal Gochoo; Juliana Usman; Swee King Phang; Khin Wee Lai}}
+\begin{document}
+{\Large\bfseries Supplemental Data S1\par}
+\vspace{4pt}
+{\large\bfseries Database-specific search strategies for self-supervised EEG analysis.\par}
+\vspace{6pt}
+\textbf{Related article:} Self-Supervised Learning for EEG in Neurological and Psychiatric Disorders: A Systematic Literature Review
+
+\textbf{Authors:} Zhenzuo Zhu, Joon Huang Chuah, Farina Muhamad, Munkhjargal Gochoo, Juliana Usman, Swee King Phang, and Khin Wee Lai.
+
+\section*{Overview}
+This appendix documents the database-specific query strings for Web of Science Core Collection, IEEE Xplore, and PubMed. The search strategies combine EEG-related, methodological, and disorder-related terms with a title-focused branch for general EEG representation-learning studies.
+
+\textbf{Review publication window:} 2020--2025.\\
+\textbf{Dates searched:} initial search on September 26, 2026; updated search on October 22, 2026.\\
+
+The following sections report the search strings, fields, and database-specific limits.
+
+\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}X@{}}
+\toprule
+\textbf{Section} & \textbf{Contents}\\
+\midrule
+S1. Web of Science & Topic/title query and separately documented year, document-type, index, and language limits.\\
+S2. IEEE Xplore & Three separate Command Searches: neurological disorders, psychiatric/neurodevelopmental disorders, and general-model title search; applied interface limits and deduplication.\\
+S3. PubMed & Title/abstract and title terms, publication-type restrictions, exclusions, and publication-date range.\\
+\bottomrule
+\end{tabularx}
+
+\textbf{Records returned by each database}:
+
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+\toprule
+\textbf{Database} & \textbf{Records returned} \\
+\midrule
+Web of Science Core Collection & 538 \\
+IEEE Xplore (after within-database merging) & 502 \\
+PubMed & 307 \\
+\midrule
+Total before cross-database deduplication & 1,347 \\
+\bottomrule
+\end{tabularx}
+
+\section*{Notation and scope}
+AND, OR, and NOT are Boolean operators. Quotation marks delimit phrases; an asterisk is retained wherever supplied as a truncation symbol. Database field labels are retained verbatim. In the Web of Science query, TS and TI denote Topic and Title searches. In PubMed, [tiab] denotes Title/Abstract (including indexed author keywords), [ti] Title, [pt] Publication Type, [sb] Subset, and [dp] Publication Date.
+
+The review limits included studies to English-language, peer-reviewed publications in its stated period. Database-specific filters are reported separately below. No English-language clause is present in the supplied PubMed query; the review's English-language eligibility criterion is distinct from a query-level language filter.
+
+\clearpage
+\section*{S1. Web of Science Core Collection}
+\textbf{Date searched:} October 22, 2026.\\
+
+\textbf{Search fields:} TS in the disorder-related branch; TI in the general-model branch.
+
+\textbf{Separately recorded limits:} publication years 2020--2025; document types Article or Proceedings Paper; citation indexes SCIE, SSCI, and CPCI-S; language English.\\
+\textbf{Query}
+\begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
+(
+  TS=(
+    (EEG OR electroencephalogra*)
+    AND
+    (
+      "self-supervised" OR "self supervised" OR "self-supervision" OR "self supervision"
+      OR "self-contrastive" OR "contrastive learning" OR "representation learning"
+      OR pretrain* OR "masked modeling" OR "masked autoencoder*" OR unsupervis*
+      OR autoencoder*
+    )
+    AND
+    (
+        epilep* OR seizure* OR depress* OR "major depressive disorder*" OR anxi*
+        OR bipolar* OR Alzheimer* OR dementia OR Parkinson* OR ADHD OR autism OR ASD
+        OR schizophren* OR encephalopath* OR "mild cognitive impairment" OR stroke*
+        OR "traumatic brain injury" OR "sleep disorder*" OR "neurological disorder*"
+        OR "psychiatric disorder*"
+    )
+  )
+)
+OR
+(
+  TI=(
+    (EEG OR electroencephalogra*)
+    AND
+    (
+      "self-supervised" OR "self-supervision" OR pretrain* OR "pre-training"
+      OR "foundation model*" OR "brain model*" OR "generic representation*"
+      OR "autoregressive modeling"
+    )
+  )
+)
+\end{Verbatim}
+
+\clearpage
+\section*{S2. IEEE Xplore}
+\textbf{Date searched:} October 22, 2026.\\
+
+\textbf{Search procedure:} Three independent queries were executed in IEEE Xplore Command Search. Searches 1 and 2 used the \texttt{All Metadata} field for EEG, methodological and disorder-related terms; Search 3 used the \texttt{Document Title} field for EEG and general-model terms. The three result sets were combined and deduplicated within IEEE Xplore before cross-database deduplication.
+
+\textbf{Interface limits shown in the search history:} Year 2020--2025; Content Type: Conferences and Journals. No language filter or textual \texttt{NOT} exclusion is shown in the supplied IEEE search-history records. English-language eligibility was assessed at screening.
+
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+\toprule
+\textbf{IEEE search} & \textbf{Records returned}\\
+\midrule
+Search 1. Neurological disorders & 324\\
+Search 2. Psychiatric and neurodevelopmental disorders & 109\\
+Search 3. General-model title search & 119\\
+\midrule
+Total records across the three searches, before deduplication & 552\\
+Duplicate records removed within IEEE Xplore & 50\\
+\textbf{Unique IEEE Xplore records after merging} & \textbf{502}\\
+\bottomrule
+\end{tabularx}
+
+\textbf{Search 1. Neurological disorders (324 records)}
+\begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
+(
+  (
+    "All Metadata":EEG OR "All Metadata":electroencephalogra*
+  )
+  AND
+  (
+    "All Metadata":"self-supervised" OR "All Metadata":"self supervised" OR
+    "All Metadata":"self-supervision" OR "All Metadata":"self supervision" OR
+    "All Metadata":"self-contrastive" OR "All Metadata":"contrastive learning" OR
+    "All Metadata":"representation learning" OR "All Metadata":pretrain* OR
+    "All Metadata":"masked modeling" OR "All Metadata":"masked autoencoder*" OR
+    "All Metadata":unsupervis* OR "All Metadata":autoencoder*
+  )
+  AND
+  (
+    "All Metadata":epilep* OR "All Metadata":seizure* OR "All Metadata":Alzheimer* OR
+    "All Metadata":Parkinson* OR "All Metadata":encephalopath* OR
+    "All Metadata":stroke OR "All Metadata":strokes OR
+    "All Metadata":"traumatic brain injury" OR "All Metadata":"sleep disorder" OR
+    "All Metadata":"sleep disorders" OR "All Metadata":"neurological disorder" OR
+    "All Metadata":"neurological disorders"
+  )
+)
+\end{Verbatim}
+
+\clearpage
+\textbf{Search 2. Psychiatric and neurodevelopmental disorders (109 records)}
+\begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
+(
+  (
+    "All Metadata":EEG OR "All Metadata":electroencephalogra*
+  )
+  AND
+  (
+    "All Metadata":"self-supervised" OR "All Metadata":"self supervised" OR
+    "All Metadata":"self-supervision" OR "All Metadata":"self supervision" OR
+    "All Metadata":"self-contrastive" OR "All Metadata":"contrastive learning" OR
+    "All Metadata":"representation learning" OR "All Metadata":pretrain* OR
+    "All Metadata":"masked modeling" OR "All Metadata":"masked autoencoder*" OR
+    "All Metadata":unsupervis* OR "All Metadata":autoencoder*
+  )
+  AND
+  (
+    "All Metadata":depress* OR "All Metadata":"major depressive disorder*" OR
+    "All Metadata":dementia OR "All Metadata":ADHD OR "All Metadata":autism OR
+    "All Metadata":ASD OR "All Metadata":schizophren* OR "All Metadata":anxi* OR
+    "All Metadata":bipolar* OR "All Metadata":"mild cognitive impairment" OR
+    "All Metadata":"psychiatric disorder" OR "All Metadata":"psychiatric disorders"
+  )
+)
+\end{Verbatim}
+
+\clearpage
+\textbf{Search 3. General-model title search (119 records)}
+\begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
+(
+  (
+    "Document Title":EEG OR "Document Title":electroencephalogra*
+  )
+  AND
+  (
+    "Document Title":"self-supervised" OR "Document Title":"self-supervision" OR
+    "Document Title":pretrain* OR "Document Title":"pre-training" OR
+    "Document Title":"foundation model*" OR "Document Title":"brain model*" OR
+    "Document Title":"generic representation*" OR
+    "Document Title":"autoregressive modeling"
+  )
+)
+\end{Verbatim}
+
+\clearpage
+\section*{S3. PubMed}
+\textbf{Date searched:} October 22, 2026.\\
+
+\textbf{Search fields:} [tiab] in the disorder-related branch and [ti] in the general-model branch.
+
+\textbf{Limits encoded in the query:} Journal Article or Conference Proceedings publication types; exclusion of Review, the systematic subset, Meta-Analysis, and Preprint; publication dates from 1 January 2020 through 31 December 2025. No language field is present in the supplied string.
+\textbf{Query}
+\begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
+(
+  (
+    (
+      EEG[tiab] OR electroencephalogra*[tiab]
+    )
+    AND
+    (
+      "self-supervised"[tiab] OR "self supervised"[tiab] OR "self-supervision"[tiab]
+      OR "self supervision"[tiab] OR "self-contrastive"[tiab]
+      OR "contrastive learning"[tiab] OR "representation learning"[tiab]
+      OR pretrain*[tiab] OR "masked modeling"[tiab] OR "masked autoencoder"[tiab]
+      OR unsupervis*[tiab] OR autoencoder*[tiab]
+    )
+    AND
+    (
+        epilep*[tiab] OR seizure*[tiab] OR depress*[tiab]
+        OR "major depressive disorder"[tiab] OR anxi*[tiab] OR bipolar*[tiab]
+        OR Alzheimer*[tiab] OR dementia[tiab] OR Parkinson*[tiab] OR ADHD[tiab]
+        OR autism[tiab] OR ASD[tiab] OR schizophren*[tiab] OR encephalopath*[tiab]
+        OR "mild cognitive impairment"[tiab] OR stroke*[tiab]
+        OR "traumatic brain injury"[tiab] OR "sleep disorder*"[tiab]
+        OR "neurological disorder*"[tiab] OR "psychiatric disorder*"[tiab]
+    )
+  )
+  OR
+  (
+    EEG[ti]
+    AND
+    (
+      "self-supervised"[ti] OR "self-supervision"[ti] OR pretrain*[ti]
+      OR "pre-training"[ti] OR "foundation model"[ti] OR "brain model"[ti]
+      OR "generic representation"[ti] OR "autoregressive modeling"[ti]
+    )
+  )
+)
+AND
+(
+  "Journal Article"[pt] OR "Conference Proceedings"[pt]
+)
+NOT
+(
+  Review[pt] OR systematic[sb] OR "Meta-Analysis"[pt] OR Preprint[pt]
+)
+AND
+2020/01/01:2025/12/31[dp]
+\end{Verbatim}
+\end{document}
