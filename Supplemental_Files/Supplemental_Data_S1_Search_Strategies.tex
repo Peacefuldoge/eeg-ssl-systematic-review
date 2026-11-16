@@ -15,7 +15,7 @@
 \begin{document}
 {\Large\bfseries Supplemental Data S1\par}
 \vspace{4pt}
-{\large\bfseries Database-specific search strategies for self-supervised EEG analysis.\par}
+{\large\bfseries Database-specific search strategies for self-supervised EEG analysis\par}
 \vspace{6pt}
 \textbf{Related article:} Self-Supervised Learning for EEG in Neurological and Psychiatric Disorders: A Systematic Literature Review
 
@@ -25,31 +25,17 @@
 This appendix documents the queries used for the updated search in Web of Science Core Collection, IEEE Xplore, and PubMed. The search strategies combine EEG-related, methodological, and disorder-related terms with a title-focused branch for general EEG representation-learning studies.
 
 \textbf{Review publication window:} 2020--2025.\\
-\textbf{Dates searched:} initial search on September 26, 2026; updated search on October 22, 2026.\\
+\textbf{Dates searched:} initial search on September 26, 2026; updated search on October 22, 2026.
 
-The following sections report the search strings, fields, and database-specific limits.
-
-\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}X@{}}
+\begin{tabularx}{\textwidth}{@{}lXr@{}}
 \toprule
-\textbf{Section} & \textbf{Contents}\\
+\textbf{Part} & \textbf{Database} & \textbf{Records} \\
 \midrule
-S1. Web of Science & Topic/title query and separately documented year, document-type, index, and language limits.\\
-S2. IEEE Xplore & Three separate Command Searches: neurological disorders, psychiatric/neurodevelopmental disorders, and general-model title search; applied interface limits and deduplication.\\
-S3. PubMed & Title/abstract and title terms, publication-type restrictions, exclusions, and publication-date range.\\
-\bottomrule
-\end{tabularx}
-
-\textbf{Records returned by each database}:
-
-\begin{tabularx}{\textwidth}{@{}Xr@{}}
-\toprule
-\textbf{Database} & \textbf{Records returned} \\
+A & Web of Science Core Collection & 538 \\
+B & IEEE Xplore (after within-database deduplication) & 502 \\
+C & PubMed & 307 \\
 \midrule
-Web of Science Core Collection & 538 \\
-IEEE Xplore (after within-database merging) & 502 \\
-PubMed & 307 \\
-\midrule
-Total before cross-database deduplication & 1,347 \\
+\multicolumn{2}{@{}l}{Total before cross-database deduplication} & \textbf{1,347} \\
 \bottomrule
 \end{tabularx}
 
@@ -59,12 +45,13 @@ AND, OR, and NOT are Boolean operators. Quotation marks delimit phrases; an aste
 The review limits included studies to English-language, peer-reviewed publications in its stated period. Database-specific filters are reported separately below. No English-language clause is present in the supplied PubMed query; the review's English-language eligibility criterion is distinct from a query-level language filter.
 
 \clearpage
-\section*{S1. Web of Science Core Collection}
-\textbf{Date searched:} October 22, 2026.\\
+\section*{Part A. Web of Science Core Collection}
+\textbf{Date searched:} October 22, 2026.
 
 \textbf{Search fields:} TS in the disorder-related branch; TI in the general-model branch.
 
-\textbf{Separately recorded limits:} publication years 2020--2025; document types Article or Proceedings Paper; citation indexes SCIE, SSCI, and CPCI-S; language English.\\
+\textbf{Separately recorded limits:} publication years 2020--2025; document types Article or Proceedings Paper; citation indexes SCIE, SSCI, and CPCI-S; language English.
+
 \textbf{Query}
 \begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
 (
@@ -102,8 +89,8 @@ OR
 \end{Verbatim}
 
 \clearpage
-\section*{S2. IEEE Xplore}
-\textbf{Date searched:} October 22, 2026.\\
+\section*{Part B. IEEE Xplore}
+\textbf{Date searched:} October 22, 2026.
 
 \textbf{Search procedure:} Three independent queries were executed in IEEE Xplore Command Search. Searches 1 and 2 used the \texttt{All Metadata} field for EEG, methodological and disorder-related terms; Search 3 used the \texttt{Document Title} field for EEG and general-model terms. The three result sets were combined and deduplicated within IEEE Xplore before cross-database deduplication.
 
@@ -151,6 +138,7 @@ Duplicate records removed within IEEE Xplore & 50\\
 \end{Verbatim}
 
 \clearpage
+\section*{Part B. IEEE Xplore (continued)}
 \textbf{Search 2. Psychiatric and neurodevelopmental disorders (109 records)}
 \begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
 (
@@ -177,7 +165,7 @@ Duplicate records removed within IEEE Xplore & 50\\
 )
 \end{Verbatim}
 
-\clearpage
+\medskip
 \textbf{Search 3. General-model title search (119 records)}
 \begin{Verbatim}[fontsize=\fontsize{8.5}{10}\selectfont,breaklines=true,breakanywhere=false,breaksymbolleft={},breaksymbolright={},frame=single,framesep=6pt]
 (
@@ -196,8 +184,8 @@ Duplicate records removed within IEEE Xplore & 50\\
 \end{Verbatim}
 
 \clearpage
-\section*{S3. PubMed}
-\textbf{Date searched:} October 22, 2026.\\
+\section*{Part C. PubMed}
+\textbf{Date searched:} October 22, 2026.
 
 \textbf{Search fields:} [tiab] in the disorder-related branch and [ti] in the general-model branch.
 
