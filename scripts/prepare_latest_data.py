@@ -21,6 +21,22 @@ RISK_DOMAINS = {
 }
 
 
+COMPARATOR_FIELD = 'Same-backbone random-initialization or SSL-removal comparator'
+
+
+def comparison_conditions(ssl):
+    """Narrow same-backbone comparisons by label budget, test set and participant separation."""
+    controlled = [row for row in ssl if row[COMPARATOR_FIELD] == 'Yes']
+    same_test = [row for row in controlled if row['Same downstream test set'] == 'Yes']
+    return {
+        'same_backbone_comparators': len(controlled),
+        'matched_label_budget': sum(row['Matched downstream label budget'] == 'Yes' for row in controlled),
+        'same_test_set_confirmed': len(same_test),
+        'same_test_set_and_participant_disjoint': sum(
+            row[PARTITION_FIELD] == 'Participant-disjoint only' for row in same_test),
+    }
+
+
 def summarize_evaluation(records):
     """Count the report-level codes used in Table 5 and the sensitivity analysis."""
     ssl = [row for row in records if row['Analysis group'] == 'Self-supervised learning']
@@ -42,6 +58,23 @@ def summarize_evaluation(records):
             row['Same-backbone random-initialization or SSL-removal comparator'] == 'Yes'
             for row in ssl
         ),
+        'comparison_conditions': comparison_conditions(ssl),
+        'by_epilepsy_coverage': {
+            label: {
+                'reports': len(group),
+                'participant_separation_unclear': sum(row[PARTITION_FIELD] == UNCLEAR_PARTITION for row in group),
+                'same_backbone_comparators': sum(row[COMPARATOR_FIELD] == 'Yes' for row in group),
+            }
+            for label, group in [
+                ('with_epilepsy_related_data', [row for row in ssl if 'Epilepsy' in row['Disorder coverage']]),
+                ('without_epilepsy_related_data', [row for row in ssl if 'Epilepsy' not in row['Disorder coverage']]),
+            ]
+        },
+        'reporting_items': {
+            'limited_label_evaluation': sum(row['Limited-label evaluation'] == 'Yes' for row in ssl),
+            'encoder_update_extent_unclear': sum('encoder update extent unclear' in row['Downstream adaptation modes'] for row in ssl),
+            'implementation_entry_identified': sum(row['Reported implementation entry'] == 'Yes' for row in ssl),
+        },
         'annual_counts': annual_counts,
         'event_only_sensitivity': {
             'retained_reports': len(retained),
