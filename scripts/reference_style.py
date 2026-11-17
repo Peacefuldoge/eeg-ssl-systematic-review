@@ -10,11 +10,11 @@ import matplotlib
 if '--show' not in sys.argv:
     matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import findfont
 from matplotlib.ticker import MaxNLocator
 from matplotlib.transforms import Bbox
 
-from review_data import (BACKBONES, DISEASES, YEARS, country_counts, disease_counts,
-                         field_counts, year_counts)
+from review_data import BACKBONES, DISEASES, YEARS, disease_counts, field_counts, year_counts
 
 PALETTE = ['#6AD1A3', '#7FBDDA', '#BBC7BE', '#FFD47D', '#FFA288',
            '#C49892', '#929EAB', '#84ADDC', '#B7ABD1', '#D3C3A3', '#9BC8BD', '#DAB4C8']
@@ -22,8 +22,6 @@ PALETTE = ['#6AD1A3', '#7FBDDA', '#BBC7BE', '#FFD47D', '#FFA288',
 METHOD_ORDER = ['Predictive SSL', 'Generative SSL', 'Discriminative SSL', 'Hybrid SSL', 'Conventional autoencoder']
 METHOD_COLORS = {'Generative SSL': PALETTE[0], 'Discriminative SSL': PALETTE[1], 'Hybrid SSL': PALETTE[2],
                  'Predictive SSL': PALETTE[3], 'Conventional autoencoder': PALETTE[4]}
-COUNTRY_COLORS = dict(zip(['China', 'Other', 'USA', 'Japan', 'Canada', 'Switzerland',
-                          'France', 'South Korea', 'India', 'Iran', 'Bangladesh', 'Romania'], PALETTE))
 # Colours stay tied to each disease family, not to its position in DISEASES, so
 # inserting a family never repaints the others.
 DISEASE_COLORS = {
@@ -42,16 +40,22 @@ DISEASE_COLORS = {
 BACKBONE_COLORS = dict(zip(BACKBONES, PALETTE))
 
 
+def configure_export_style():
+    font = 'Times New Roman'
+    findfont(font, fallback_to_default=False)
+    plt.rcParams.update({'font.family': font, 'figure.facecolor': 'white',
+                         'axes.facecolor': 'white', 'savefig.facecolor': 'white',
+                         'savefig.transparent': False, 'svg.fonttype': 'path',
+                         'pdf.fonttype': 42})
+
+
 def base_style(backbone=False):
-    # All figures use Times New Roman (matching Figure 13); the 14x8-inch backbone
-    # chart keeps its larger typography. Liberation Serif is metric-compatible fallback.
-    plt.rcParams.update({'font.family': 'serif',
-                         'font.serif': ['Times New Roman', 'Liberation Serif', 'DejaVu Serif'],
-                         'font.size': 16 if backbone else 10,
+    configure_export_style()
+    plt.rcParams.update({'font.size': 16 if backbone else 10,
                          'axes.labelsize': 17 if backbone else 10,
                          'xtick.labelsize': 16 if backbone else 10,
                          'ytick.labelsize': 16 if backbone else 10,
-                         'legend.fontsize': 10, 'svg.fonttype': 'none'})
+                         'legend.fontsize': 10})
 
 
 def export(fig, stem, show=False, kind='ordinary'):
@@ -65,42 +69,35 @@ def export(fig, stem, show=False, kind='ordinary'):
         tight = fig.get_tightbbox(fig.canvas.get_renderer()).padded(0.1)
         bbox = Bbox.from_bounds(tight.x0, tight.y0, pixels[0]/dpi+1e-8, pixels[1]/dpi+1e-8)
     for suffix in ['.png', '.svg']:
-        fig.savefig(stem.with_suffix(suffix), dpi=dpi, facecolor='none', transparent=True,
-                    bbox_inches=bbox, pad_inches=0)
+        fig.savefig(stem.with_suffix(suffix), dpi=dpi, bbox_inches=bbox, pad_inches=0)
     if show:
         plt.show()
     plt.close(fig)
     return str(stem.with_suffix('.png').resolve())
 
 
-def draw_pie(rows, group, kind, stem, show=False):
+def draw_pie(rows, group, stem, show=False):
     base_style()
-    counts = country_counts(rows) if kind == 'country' else field_counts(rows, 'Method_1')
-    if kind == 'country':
-        counts = dict(sorted(counts.items(), key=lambda x: (-x[1], x[0])))
-    else:
-        counts = {name: counts[name] for name in METHOD_ORDER if counts.get(name)}
-    labels, values = list(counts), list(counts.values())
-    colors = COUNTRY_COLORS if kind == 'country' else METHOD_COLORS
-    plot_colors = [colors.get(name, PALETTE[i % len(PALETTE)]) for i, name in enumerate(labels)]
-    if group == 'traditional_ae' and kind == 'method':
+    raw = field_counts(rows, 'Method_1')
+    counts = {name: raw[name] for name in METHOD_ORDER if raw[name]}
+    plot_colors = [METHOD_COLORS[name] for name in counts]
+    if group == 'traditional_ae':
         plot_colors = [PALETTE[0]]
-    fig = plt.figure(figsize=(8, 6), facecolor='none')
+    fig = plt.figure(figsize=(8, 6))
     ax = fig.add_axes([0.04, 0.10, 0.58, 0.80])
-    ax.set_facecolor('none')
-    wedges, _ = ax.pie(values, labels=None, colors=plot_colors, startangle=140,
+    wedges, _ = ax.pie(list(counts.values()), labels=None, colors=plot_colors, startangle=140,
                        counterclock=True, wedgeprops={'linewidth': 0})
     legend_labels = [f'{name}:\n{value} ({value/len(rows)*100:.1f}%)' if name == 'Conventional autoencoder'
                      else f'{name}: {value} ({value/len(rows)*100:.1f}%)' for name, value in counts.items()]
     ax.legend(wedges, legend_labels,
-              title='Country' if kind == 'country' else 'Category', loc='center left',
+              title='Category', loc='center left',
               bbox_to_anchor=(1.00, 0.5), frameon=False, labelcolor='black',
               title_fontsize=12, fontsize=10)
     ax.axis('equal')
     return export(fig, stem, show)
 
 
-def draw_disease(rows, group, stem, show=False):
+def draw_disease(rows, stem, show=False):
     base_style()
     raw = disease_counts(rows)
     # Families with no report in this view are omitted, matching the backbone chart.
@@ -108,8 +105,7 @@ def draw_disease(rows, group, stem, show=False):
     counts.sort(key=lambda item: (-item[1], DISEASES.index(item[0])))
     counts = counts[::-1]
     labels = [textwrap.fill(name, 38, break_long_words=False, break_on_hyphens=False) for name, _ in counts]
-    fig, ax = plt.subplots(figsize=(9, 6.5), facecolor='none')
-    ax.set_facecolor('none')
+    fig, ax = plt.subplots(figsize=(9, 6.5))
     bars = ax.barh(labels, [value for _, value in counts],
                    color=[DISEASE_COLORS[name] for name, _ in counts], height=0.68)
     for bar, (_, value) in zip(bars, counts):
@@ -130,15 +126,13 @@ def draw_disease(rows, group, stem, show=False):
     return export(fig, stem, show, kind='disease')
 
 
-def draw_backbone(rows, group, stem, show=False):
+def draw_backbone(rows, stem, show=False):
     base_style(backbone=True)
     raw = field_counts(rows, 'Backbone')
     counts = [(name, raw.get(name, 0)) for name in BACKBONES if raw.get(name, 0) > 0]
     counts.sort(key=lambda item: (-item[1], BACKBONES.index(item[0])))
     labels = [('Transformer-' + chr(10) + 'based') if name == 'Transformer-based' else name for name, _ in counts]
     fig, ax = plt.subplots(figsize=(14, 8))
-    fig.patch.set_alpha(0)
-    ax.set_facecolor('none')
     bars = ax.bar(labels, [value for _, value in counts], width=0.6,
                   color=[BACKBONE_COLORS[name] for name, _ in counts], edgecolor='none', zorder=3)
     maximum = max(value for _, value in counts)
@@ -160,17 +154,12 @@ def draw_backbone(rows, group, stem, show=False):
     return export(fig, stem, show, kind='backbone')
 
 
-def draw_bars(rows, group, kind, stem, show=False):
-    return draw_disease(rows, group, stem, show) if kind == 'disease' else draw_backbone(rows, group, stem, show)
-
-
 def draw_annual(rows, group, field, stem, show=False):
     base_style()
     order = METHOD_ORDER if field == 'Method_1' else BACKBONES
     colors = METHOD_COLORS if field == 'Method_1' else BACKBONE_COLORS
     order = [name for name in order if any(r[field] == name for r in rows)]
-    fig, ax = plt.subplots(figsize=(8, 6), facecolor='none')
-    ax.set_facecolor('none')
+    fig, ax = plt.subplots(figsize=(8, 6))
     bottoms = [0]*len(YEARS)
     for name in order:
         values = [sum(int(r['Year']) == year and r[field] == name for r in rows) for year in YEARS]
@@ -198,12 +187,11 @@ def draw_annual(rows, group, field, stem, show=False):
     return export(fig, stem, show)
 
 
-def draw_year(rows, group, stem, show=False, line=True):
+def draw_year(rows, stem, show=False, line=True):
     base_style()
     counts = year_counts(rows)
     years, values = list(counts), list(counts.values())
-    fig, ax = plt.subplots(figsize=(8, 6), facecolor='none')
-    ax.set_facecolor('none')
+    fig, ax = plt.subplots(figsize=(8, 6))
     bars = ax.bar(years, values, width=.60, color='#BFBFBF', edgecolor='none', label='Number of reports', zorder=2)
     if line:
         trend, = ax.plot(years, values, color='#4D4D4D', linewidth=1.8, marker='o', markersize=4.5,

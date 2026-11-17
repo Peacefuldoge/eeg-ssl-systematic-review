@@ -20,6 +20,8 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import numpy as np
 
+from reference_style import configure_export_style
+
 
 METHODS = ("Predictive SSL", "Generative SSL", "Discriminative SSL", "Hybrid SSL")
 DISEASES = (
@@ -126,15 +128,12 @@ def draw(counts, method_totals, output_dir: Path, mode: str, dpi: int):
         vmax = 100
         colorbar_label = "Within-disorder share (%)"
         filename = "SSL_method_disorder_within_disorder_percent"
+    configure_export_style()
     plt.rcParams.update({
-        "font.family": "serif", "font.serif": ["Times New Roman", "Liberation Serif", "DejaVu Serif"],
         "font.size": 12, "axes.labelsize": 13, "xtick.labelsize": 12,
-        "ytick.labelsize": 12, "pdf.fonttype": 42, "ps.fonttype": 42,
-        "svg.fonttype": "none",
+        "ytick.labelsize": 12,
     })
     fig, ax = plt.subplots(figsize=(8.5, 6.0))
-    fig.patch.set_alpha(0)
-    ax.patch.set_alpha(0)
     fig.subplots_adjust(left=0.385, right=0.88, top=0.82, bottom=0.10)
     cmap = plt.colormaps["Blues"].copy()
     cmap.set_bad("#ededed")
@@ -166,7 +165,6 @@ def draw(counts, method_totals, output_dir: Path, mode: str, dpi: int):
             color = "white" if np.isfinite(value) and value > 0.58 * vmax else "#242424"
             ax.text(j, i, label, ha="center", va="center", color=color, fontsize=12)
     cb_ax = fig.add_axes([0.90, 0.18, 0.022, 0.58])
-    cb_ax.patch.set_alpha(0)
     colorbar = fig.colorbar(im, cax=cb_ax)
     if colorbar.solids is not None:
         colorbar.solids.set_rasterized(False)
@@ -176,8 +174,7 @@ def draw(counts, method_totals, output_dir: Path, mode: str, dpi: int):
         colorbar.update_ticks()
     colorbar.outline.set_visible(False)
     for extension in ("pdf", "svg", "png"):
-        fig.savefig(output_dir / f"{filename}.{extension}", dpi=dpi,
-                    transparent=True, facecolor="none", edgecolor="none")
+        fig.savefig(output_dir / f"{filename}.{extension}", dpi=dpi)
     plt.close(fig)
 
 

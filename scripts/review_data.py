@@ -114,17 +114,6 @@ def disease_counts(rows):
     return {name: counts[name] for name in DISEASES}
 
 
-def country_counts(rows, group_singletons=True):
-    counts = field_counts(rows, 'Nation')
-    if not group_singletons:
-        return dict(sorted(counts.items(), key=lambda x: (-x[1], x[0])))
-    displayed = {k: v for k, v in counts.items() if v > 1}
-    singles = sum(v for v in counts.values() if v == 1)
-    if singles:
-        displayed['Other'] = singles
-    return dict(sorted(displayed.items(), key=lambda x: (x[0] == 'Other', -x[1], x[0])))
-
-
 def year_counts(rows):
     counts = Counter(int(r['Year']) for r in rows)
     return {year: counts[year] for year in YEARS}

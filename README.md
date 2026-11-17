@@ -17,6 +17,8 @@ Data and analysis scripts for *Self-Supervised Learning for EEG in Neurological 
 
 Run these commands from the repository root with Python 3.10 or newer. Use the input and output paths below to keep generated files under `outputs/`.
 
+Install Times New Roman before running the plotting commands. All plots use a white background. SVG exports store the letter shapes as paths to preserve the typography on other systems.
+
 ```sh
 python -m pip install -r requirements.txt
 python scripts/prepare_latest_data.py --output-dir outputs/data
@@ -69,7 +71,7 @@ Use S4 for the participant-level and recording-level exposure evidence summarize
 | [`plot_ssl_disease_heatmap.py`](scripts/plot_ssl_disease_heatmap.py) | Aggregates SSL report counts by method and disorder directly from S2. Produces Figure 13, the percentage view, and the report IDs used in the counts. |
 | [`review_charts.py`](scripts/review_charts.py) | Shared chart command-line interface and export logic for Figures 5, 6, 11, 12, and 14. Selects the analysis group, dispatches each chart, and writes the group-level counts and report list. |
 | [`review_data.py`](scripts/review_data.py) | Shared CSV parsing, validation, group selection, disease coding, and aggregation for data preparation and the standard charts. |
-| [`reference_style.py`](scripts/reference_style.py) | Shared Matplotlib functions for the standard charts. Defines layout, typography, colors, and image export for Figures 5, 6, 11, 12, and 14. The Figure 13 heatmap defines its own styling. |
+| [`reference_style.py`](scripts/reference_style.py) | Sets the font and background for all charts. Provides layout, colors, and export for Figures 5, 6, 11, 12, and 14. The heatmap script defines the Figure 13 layout and colors. |
 | [`requirements.txt`](requirements.txt) | Python dependencies for the analysis and figure scripts. |
 | [`.gitignore`](.gitignore) | Excludes Python caches, virtual environments, and generated outputs. |
 | [`README.md`](README.md) | Repository guide, manuscript figure map, and reproduction commands. |

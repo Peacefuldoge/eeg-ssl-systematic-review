@@ -2,7 +2,7 @@
 import argparse
 import json
 from pathlib import Path
-from reference_style import draw_pie, draw_bars, draw_annual, draw_year
+from reference_style import draw_annual, draw_backbone, draw_disease, draw_pie, draw_year
 from review_data import (DEFAULT_CSV, GROUPS, VIEW_LABELS, disease_counts,
                          field_counts, load_records, select_group, write_csv, year_counts)
 
@@ -25,13 +25,15 @@ def generate_group(rows, group, output_dir, charts=None, show=False, year_line=N
     for kind in charts:
         stem = output_dir/FILES[kind]
         if kind == 'method':
-            path = draw_pie(rows, group, kind, stem, show)
-        elif kind in ['disease', 'backbone']:
-            path = draw_bars(rows, group, kind, stem, show)
+            path = draw_pie(rows, group, stem, show)
+        elif kind == 'disease':
+            path = draw_disease(rows, stem, show)
+        elif kind == 'backbone':
+            path = draw_backbone(rows, stem, show)
         elif kind in ['method_by_year', 'backbone_by_year']:
             path = draw_annual(rows, group, 'Method_1' if kind == 'method_by_year' else 'Backbone', stem, show)
         else:
-            path = draw_year(rows, group, stem, show, line=group in ['ssl', 'combined'] if year_line is None else year_line)
+            path = draw_year(rows, stem, show, line=group in ['ssl', 'combined'] if year_line is None else year_line)
         paths.append(path)
     output_dir.mkdir(parents=True, exist_ok=True)
     write_csv(output_dir/'plotted_reports.csv', rows)
