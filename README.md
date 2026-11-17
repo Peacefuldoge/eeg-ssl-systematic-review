@@ -73,5 +73,10 @@ Use S4 for the participant-level and recording-level exposure evidence summarize
 | [`review_data.py`](scripts/review_data.py) | Shared CSV parsing, validation, group selection, disease coding, and aggregation for data preparation and the standard charts. |
 | [`reference_style.py`](scripts/reference_style.py) | Sets the font and background for all charts. Provides layout, colors, and export for Figures 5, 6, 11, 12, and 14. The heatmap script defines the Figure 13 layout and colors. |
 | [`requirements.txt`](requirements.txt) | Python dependencies for the analysis and figure scripts. |
+| [`LICENSE`](LICENSE) | MIT license for the repository's analysis and plotting code. |
 | [`.gitignore`](.gitignore) | Excludes Python caches, virtual environments, and generated outputs. |
 | [`README.md`](README.md) | Repository guide, manuscript figure map, and reproduction commands. |
+
+## License
+
+The repository code is available under the [MIT License](LICENSE). Supplementary materials and third-party content are outside its scope.

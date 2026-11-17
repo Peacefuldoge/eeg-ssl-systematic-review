@@ -130,8 +130,8 @@ def draw(counts, method_totals, output_dir: Path, mode: str, dpi: int):
         filename = "SSL_method_disorder_within_disorder_percent"
     configure_export_style()
     plt.rcParams.update({
-        "font.size": 12, "axes.labelsize": 13, "xtick.labelsize": 12,
-        "ytick.labelsize": 12,
+        "font.size": 13, "axes.labelsize": 14, "xtick.labelsize": 13,
+        "ytick.labelsize": 13,
     })
     fig, ax = plt.subplots(figsize=(8.5, 6.0))
     fig.subplots_adjust(left=0.385, right=0.88, top=0.82, bottom=0.10)
@@ -163,7 +163,7 @@ def draw(counts, method_totals, output_dir: Path, mode: str, dpi: int):
             value = values[i, j]
             label = "—" if np.isnan(value) else (str(counts[i, j]) if mode == "count" else f"{value:.0f}%")
             color = "white" if np.isfinite(value) and value > 0.58 * vmax else "#242424"
-            ax.text(j, i, label, ha="center", va="center", color=color, fontsize=12)
+            ax.text(j, i, label, ha="center", va="center", color=color, fontsize=13)
     cb_ax = fig.add_axes([0.90, 0.18, 0.022, 0.58])
     colorbar = fig.colorbar(im, cax=cb_ax)
     if colorbar.solids is not None:

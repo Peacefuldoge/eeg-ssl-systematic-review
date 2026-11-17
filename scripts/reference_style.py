@@ -51,11 +51,11 @@ def configure_export_style():
 
 def base_style(backbone=False):
     configure_export_style()
-    plt.rcParams.update({'font.size': 16 if backbone else 10,
-                         'axes.labelsize': 17 if backbone else 10,
-                         'xtick.labelsize': 16 if backbone else 10,
-                         'ytick.labelsize': 16 if backbone else 10,
-                         'legend.fontsize': 10})
+    plt.rcParams.update({'font.size': 17 if backbone else 11,
+                         'axes.labelsize': 18 if backbone else 11,
+                         'xtick.labelsize': 17 if backbone else 11,
+                         'ytick.labelsize': 17 if backbone else 11,
+                         'legend.fontsize': 11})
 
 
 def export(fig, stem, show=False, kind='ordinary'):
@@ -92,7 +92,7 @@ def draw_pie(rows, group, stem, show=False):
     ax.legend(wedges, legend_labels,
               title='Category', loc='center left',
               bbox_to_anchor=(1.00, 0.5), frameon=False, labelcolor='black',
-              title_fontsize=12, fontsize=10)
+              title_fontsize=13, fontsize=11)
     ax.axis('equal')
     return export(fig, stem, show)
 
@@ -110,10 +110,10 @@ def draw_disease(rows, stem, show=False):
                    color=[DISEASE_COLORS[name] for name, _ in counts], height=0.68)
     for bar, (_, value) in zip(bars, counts):
         ax.text(bar.get_width()+0.2, bar.get_y()+bar.get_height()/2,
-                f'{value} ({value/len(rows)*100:.1f}%)', va='center', ha='left', fontsize=12, color='#333333')
-    ax.set_xlabel('Number of reports', fontsize=12, color='#333333')
+                f'{value} ({value/len(rows)*100:.1f}%)', va='center', ha='left', fontsize=13, color='#333333')
+    ax.set_xlabel('Number of reports', fontsize=13, color='#333333')
     ax.set_ylabel('')
-    ax.tick_params(axis='both', labelsize=12, colors='#333333')
+    ax.tick_params(axis='both', labelsize=13, colors='#333333')
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     for name in ['left', 'bottom']:
@@ -138,9 +138,9 @@ def draw_backbone(rows, stem, show=False):
     maximum = max(value for _, value in counts)
     for bar, (_, value) in zip(bars, counts):
         ax.text(bar.get_x()+bar.get_width()/2, bar.get_height()+max(maximum*.018, .18),
-                f'{value} ({value/len(rows)*100:.1f}%)', ha='center', va='bottom', fontsize=15, color='#333333')
-    ax.set_xlabel('Backbone architecture', fontsize=18, labelpad=8)
-    ax.set_ylabel('Number of reports', fontsize=18, labelpad=8)
+                f'{value} ({value/len(rows)*100:.1f}%)', ha='center', va='bottom', fontsize=16, color='#333333')
+    ax.set_xlabel('Backbone architecture', fontsize=19, labelpad=8)
+    ax.set_ylabel('Number of reports', fontsize=19, labelpad=8)
     ax.set_ylim(0, maximum*1.18)
     ax.grid(axis='y', color='#E6E6E6', linewidth=0.8, zorder=0)
     ax.grid(axis='x', visible=False)
@@ -166,12 +166,12 @@ def draw_annual(rows, group, field, stem, show=False):
         color = PALETTE[0] if group == 'traditional_ae' and field == 'Method_1' else colors[name]
         ax.bar(YEARS, values, bottom=bottoms, width=.68, color=color, edgecolor='none', label=name, zorder=2)
         bottoms = [a+b for a, b in zip(bottoms, values)]
-    ax.set_xlabel('Year', fontsize=11, fontweight='normal', labelpad=8)
-    ax.set_ylabel('Number of reports', fontsize=11, fontweight='normal', labelpad=8)
+    ax.set_xlabel('Year', fontsize=12, fontweight='normal', labelpad=8)
+    ax.set_ylabel('Number of reports', fontsize=12, fontweight='normal', labelpad=8)
     ax.set_xticks(YEARS)
     ax.set_ylim(0, max(bottoms)*1.08)
     ax.yaxis.set_major_locator(MaxNLocator(integer=True, nbins=7))
-    ax.tick_params(axis='both', labelsize=9, colors='black')
+    ax.tick_params(axis='both', labelsize=10, colors='black')
     ax.set_axisbelow(True)
     ax.grid(axis='y', linestyle='--', linewidth=.7, color='#BBC7BE', alpha=.65)
     for spine in ax.spines.values():
@@ -180,10 +180,10 @@ def draw_annual(rows, group, field, stem, show=False):
     is_method = field == 'Method_1'
     title = ('SSL Method' if group == 'ssl' else 'Category') if is_method else 'Backbone'
     columns = 3 if not is_method or len(order)>4 else 2
-    ax.legend(title=title, loc='upper center', bbox_to_anchor=(.5, 1.18 if is_method else 1.23),
-              ncol=columns, frameon=False, fontsize=9, title_fontsize=11,
+    ax.legend(title=title, loc='upper center', bbox_to_anchor=(.5, 1.18 if is_method else 1.28),
+              ncol=columns, frameon=False, fontsize=10, title_fontsize=12,
               handlelength=2.0, handleheight=1.0, handletextpad=.8, columnspacing=1.5, labelspacing=.5)
-    fig.subplots_adjust(left=.13, right=.96, top=.80 if is_method else .78, bottom=.13)
+    fig.subplots_adjust(left=.13, right=.96, top=.79 if is_method else .77, bottom=.13)
     return export(fig, stem, show)
 
 
@@ -198,11 +198,11 @@ def draw_year(rows, stem, show=False, line=True):
                          markerfacecolor='#8C8C8C', markeredgecolor='#4D4D4D', markeredgewidth=.8,
                          label='Trend', zorder=3)
         ax.legend(handles=[trend, bars], labels=['Trend', 'Number of reports'],
-                  loc='upper left', frameon=False, fontsize=9)
-    ax.set_xlabel('Year', fontsize=11, fontweight='normal', labelpad=8)
-    ax.set_ylabel('Number of reports', fontsize=11, fontweight='normal', labelpad=8)
+                  loc='upper left', frameon=False, fontsize=10)
+    ax.set_xlabel('Year', fontsize=12, fontweight='normal', labelpad=8)
+    ax.set_ylabel('Number of reports', fontsize=12, fontweight='normal', labelpad=8)
     ax.set_xticks(years)
-    ax.tick_params(axis='both', labelsize=9, colors='black')
+    ax.tick_params(axis='both', labelsize=10, colors='black')
     ax.set_ylim(0, max(values)*1.08)
     ax.set_axisbelow(True)
     ax.grid(axis='y', color='#D9DEE3', linestyle='--', linewidth=.7, alpha=.65)
