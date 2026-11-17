@@ -1,4 +1,4 @@
-"""Latest review chart entrypoints; visual design follows the user's original figures."""
+"""Chart entry points for the review figures generated from Data S2."""
 import argparse
 import json
 from pathlib import Path

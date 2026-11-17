@@ -1,4 +1,4 @@
-"""Rendering parameters restored from the user's original figure05--figure11 scripts."""
+"""Shared rendering parameters for the review charts."""
 import os
 from pathlib import Path
 import sys
@@ -18,7 +18,7 @@ from review_data import (BACKBONES, DISEASES, YEARS, country_counts, disease_cou
 
 PALETTE = ['#6AD1A3', '#7FBDDA', '#BBC7BE', '#FFD47D', '#FFA288',
            '#C49892', '#929EAB', '#84ADDC', '#B7ABD1', '#D3C3A3', '#9BC8BD', '#DAB4C8']
-# Display order shared with Figure 15 (heatmap); colours stay tied to each method, not to its position.
+# Display order shared with Figure 13 (heatmap); colours stay tied to each method, not to its position.
 METHOD_ORDER = ['Predictive SSL', 'Generative SSL', 'Discriminative SSL', 'Hybrid SSL', 'Conventional autoencoder']
 METHOD_COLORS = {'Generative SSL': PALETTE[0], 'Discriminative SSL': PALETTE[1], 'Hybrid SSL': PALETTE[2],
                  'Predictive SSL': PALETTE[3], 'Conventional autoencoder': PALETTE[4]}
@@ -43,7 +43,7 @@ BACKBONE_COLORS = dict(zip(BACKBONES, PALETTE))
 
 
 def base_style(backbone=False):
-    # All figures use Times New Roman (matching Figure 15); the 14x8-inch backbone
+    # All figures use Times New Roman (matching Figure 13); the 14x8-inch backbone
     # chart keeps its larger typography. Liberation Serif is metric-compatible fallback.
     plt.rcParams.update({'font.family': 'serif',
                          'font.serif': ['Times New Roman', 'Liberation Serif', 'DejaVu Serif'],
