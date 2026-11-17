@@ -184,7 +184,7 @@ def main():
     parser.add_argument("--input", type=Path, default=project_root / "Supplemental_Files" /
                         "Supplemental_Data_S2_Included_Reports.csv")
     parser.add_argument("--output-dir", type=Path, default=Path(__file__).resolve().parent / "figures")
-    parser.add_argument("--expected-reports", type=int, default=61,
+    parser.add_argument("--expected-reports", type=int, default=60,
                         help="Expected SSL report count; set to 0 to disable this check for a future dataset.")
     parser.add_argument("--dpi", type=int, default=400)
     args = parser.parse_args()

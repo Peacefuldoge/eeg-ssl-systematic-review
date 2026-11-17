@@ -1,6 +1,6 @@
 # EEG self-supervised learning systematic review
 
-Data and analysis scripts for *Self-Supervised Learning for EEG in Neurological and Psychiatric Disorders: A Systematic Literature Review*. The review covers publications from 2020 through 2025. The included-report dataset contains 102 reports: 61 in the main self-supervised learning (SSL) analysis and 41 in the conventional autoencoder analysis.
+Data and analysis scripts for *Self-Supervised Learning for EEG in Neurological and Psychiatric Disorders: A Systematic Literature Review*. The review covers publications from 2020 through 2025. The included-report dataset contains 101 reports: 60 in the main self-supervised learning (SSL) analysis and 41 in the conventional autoencoder analysis.
 
 ## Supplementary files
 
@@ -80,3 +80,7 @@ Use S4 for the participant-level and recording-level exposure evidence summarize
 ## License
 
 The repository code is available under the [MIT License](LICENSE). Supplementary materials and third-party content are outside its scope.
+
+### Screening rescreening
+
+The screening comparison covered 92 of 919 title-and-abstract records (10.01%). The full-text sample was drawn from the 322 reports available at the time and comprised 31 database reports and two reports identified by supplementary methods (33 of 337 reports in the final full-text set, 9.79%). Agreement was 74/92 at title-and-abstract screening (80.4%; Cohen's kappa = 0.60) and 26/33 at full text (78.8%; Cohen's kappa = 0.54). After re-inspection, the title-and-abstract decisions agreed for 80/92 records (87.0%; Cohen's kappa = 0.73). Full-text agreement after re-inspection was 27/33 (81.8%; Cohen's kappa = 0.60).
