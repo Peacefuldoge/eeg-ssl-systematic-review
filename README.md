@@ -22,9 +22,9 @@ Install Times New Roman before running the plotting commands. All plots use a wh
 ```sh
 python -m pip install -r requirements.txt
 python scripts/prepare_latest_data.py --output-dir outputs/data
-python scripts/generate_all_pie_charts.py --csv outputs/data/data_si2_latest.csv --output-dir outputs/charts
-python scripts/year_publication_trend_no_line.py --csv outputs/data/data_si2_latest.csv --output-dir outputs/charts
-python scripts/plot_ssl_disease_heatmap.py --output-dir outputs/heatmap
+python scripts/generate_ssl_summary_charts.py --csv outputs/data/data_si2_latest.csv --output-dir outputs/charts
+python scripts/plot_ae_publication_trend.py --csv outputs/data/data_si2_latest.csv --output-dir outputs/charts
+python scripts/plot_ssl_method_disorder_heatmap.py --output-dir outputs/heatmap
 ```
 
 The preparation step reads S2 and builds the plotting CSV used by the two chart commands. The heatmap reads S2 directly. The scripts leave the input data intact.
@@ -33,12 +33,12 @@ The preparation step reads S2 and builds the plotting CSV used by the two chart 
 
 | Figure | Content | Script | Generated file |
 | --- | --- | --- | --- |
-| **5** | Annual counts of SSL reports | `generate_all_pie_charts.py` | `outputs/charts/ssl/publication_trend_by_year.png` |
-| **6** | SSL methods by year | `generate_all_pie_charts.py` | `outputs/charts/ssl/model_method_distribution_by_year.png` |
-| **11** | SSL reports by backbone architecture | `generate_all_pie_charts.py` | `outputs/charts/ssl/backbone_distribution.png` |
-| **12** | SSL backbone architectures by year | `generate_all_pie_charts.py` | `outputs/charts/ssl/backbone_distribution_by_year.png` |
-| **13** | SSL methods by disorder group | `plot_ssl_disease_heatmap.py` | `outputs/heatmap/SSL_method_disorder_counts.png` |
-| **14** | Annual counts of conventional autoencoder reports | `year_publication_trend_no_line.py` | `outputs/charts/traditional_ae/publication_trend_by_year.png` |
+| **5** | Annual counts of SSL reports | `generate_ssl_summary_charts.py` | `outputs/charts/ssl/publication_trend_by_year.png` |
+| **6** | SSL methods by year | `generate_ssl_summary_charts.py` | `outputs/charts/ssl/model_method_distribution_by_year.png` |
+| **11** | SSL reports by backbone architecture | `generate_ssl_summary_charts.py` | `outputs/charts/ssl/backbone_distribution.png` |
+| **12** | SSL backbone architectures by year | `generate_ssl_summary_charts.py` | `outputs/charts/ssl/backbone_distribution_by_year.png` |
+| **13** | SSL methods by disorder group | `plot_ssl_method_disorder_heatmap.py` | `outputs/heatmap/SSL_method_disorder_counts.png` |
+| **14** | Annual counts of conventional autoencoder reports | `plot_ae_publication_trend.py` | `outputs/charts/traditional_ae/publication_trend_by_year.png` |
 
 Figures 1–3 are conceptual diagrams about disorder overlap, learning workflows, and the SSL taxonomy. Figure 4 is the PRISMA study-selection diagram. Figures 7–10 illustrate masked prediction, masked waveform reconstruction, contrastive learning, and the joint objectives in PPi. These figures are maintained with the manuscript artwork and have no Python generator in this repository.
 
@@ -66,9 +66,9 @@ Use S4 for the participant-level and recording-level exposure evidence summarize
 | File | Role |
 | --- | --- |
 | [`prepare_latest_data.py`](scripts/prepare_latest_data.py) | Converts S2 into plotting datasets, validates the coded records, and writes the evaluation summary and input manifest. |
-| [`generate_all_pie_charts.py`](scripts/generate_all_pie_charts.py) | Entry point for standard descriptive charts. Defaults to the SSL group and generates the outputs for Figures 5, 6, 11, and 12, along with auxiliary charts. |
-| [`year_publication_trend_no_line.py`](scripts/year_publication_trend_no_line.py) | Generates the bar-only annual publication counts for the conventional autoencoder group in Figure 14. |
-| [`plot_ssl_disease_heatmap.py`](scripts/plot_ssl_disease_heatmap.py) | Aggregates SSL report counts by method and disorder directly from S2. Produces Figure 13, the percentage view, and the report IDs used in the counts. |
+| [`generate_ssl_summary_charts.py`](scripts/generate_ssl_summary_charts.py) | Entry point for standard descriptive charts. Defaults to the SSL group and generates the outputs for Figures 5, 6, 11, and 12, along with auxiliary charts. |
+| [`plot_ae_publication_trend.py`](scripts/plot_ae_publication_trend.py) | Generates the bar-only annual publication counts for the conventional autoencoder group in Figure 14. |
+| [`plot_ssl_method_disorder_heatmap.py`](scripts/plot_ssl_method_disorder_heatmap.py) | Aggregates SSL report counts by method and disorder directly from S2. Produces Figure 13, the percentage view, and the report IDs used in the counts. |
 | [`review_charts.py`](scripts/review_charts.py) | Shared chart command-line interface and export logic for Figures 5, 6, 11, 12, and 14. Selects the analysis group, dispatches each chart, and writes the group-level counts and report list. |
 | [`review_data.py`](scripts/review_data.py) | Shared CSV parsing, validation, group selection, disease coding, and aggregation for data preparation and the standard charts. |
 | [`reference_style.py`](scripts/reference_style.py) | Sets the font and background for all charts. Provides layout, colors, and export for Figures 5, 6, 11, 12, and 14. The heatmap script defines the Figure 13 layout and colors. |

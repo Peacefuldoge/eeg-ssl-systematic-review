@@ -1,4 +1,4 @@
-"""Compatibility entrypoint for the latest SSL figures."""
+"""Generate the descriptive charts for the main SSL analysis."""
 from review_charts import cli
 
 if __name__ == '__main__':

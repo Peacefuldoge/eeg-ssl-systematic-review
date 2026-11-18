@@ -1,6 +1,6 @@
 """Plot SSL method-by-disorder coverage from the included-report coding CSV.
 
-Run: python plot_ssl_disease_heatmap.py
+Run from the repository root: python scripts/plot_ssl_method_disorder_heatmap.py
 Requires: numpy and matplotlib. The original CSV is read without modification.
 """
 from __future__ import annotations
