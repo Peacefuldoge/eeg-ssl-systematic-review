@@ -11,7 +11,7 @@ Data and analysis scripts for *Self-Supervised Learning for EEG in Neurological 
 | [Data S2 (CSV)](Supplemental_Files/Supplemental_Data_S2_Included_Reports.csv) | One row per included report. Contains bibliographic identifiers, identification source, analysis group, SSL method, backbone, disorder and dataset coverage, evaluation design, label budget, comparator, adaptation, implementation evidence, and risk-of-bias codes. This is the input to the Python analysis. |
 | [Data S3 (CSV)](Supplemental_Files/Supplemental_Data_S3_Full_Text_Exclusions.csv) | One row per full-text exclusion, with the report ID, title, exclusion category, and primary reason. Use it to trace the full-text exclusion totals in Figure 4. |
 | [Data S4 (XLSX)](Supplemental_Files/Supplemental_Data_S4_Pretraining_Downstream_Exposure.xlsx) | Documents pretraining exposure for test participants and exact downstream test recordings. `Reports` contains report-level coding and source evidence, `Summary` aggregates the codes, and `Definitions` explains the categories. Join to S2 using `Record ID`. |
-| [Data S5 (DOCX)](Supplemental_Files/Supplemental_Data_S5_PRISMA_2020_checklist.docx) | Completed PRISMA 2020 checklist with locations in the manuscript and supplements. |
+| [Data S5 (PDF)](Supplemental_Files/Supplemental_Data_S5_PRISMA_2020_checklist.pdf) | Completed PRISMA 2020 checklist with locations in the manuscript and supplements. |
 
 ## Reproduce the charts
 
