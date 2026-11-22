@@ -1,4 +1,4 @@
-# Self-supervised learning for clinical EEG
+# Self-Supervised Learning for EEG in Neurological and Psychiatric Disorders: A Systematic Literature Review
 
 Data and analysis scripts for *Self-Supervised Learning for EEG in Neurological and Psychiatric Disorders: A Systematic Literature Review*. The review covers 2020–2025 and includes 101 reports: 60 on self-supervised learning (SSL) and 41 on conventional autoencoders.
 
